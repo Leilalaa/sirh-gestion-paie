@@ -19,7 +19,6 @@ public class PaieUtils {
 	* @param decimal nombre à formater
 	* @return le nombre formaté
 	*/
-	@Bean
 	public String formaterBigDecimal(BigDecimal decimal) {
 		
 		DecimalFormat df = new DecimalFormat();
