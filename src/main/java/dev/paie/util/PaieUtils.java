@@ -6,6 +6,10 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
+
+@Service
 public class PaieUtils {
 	
 	/**
@@ -15,6 +19,7 @@ public class PaieUtils {
 	* @param decimal nombre à formater
 	* @return le nombre formaté
 	*/
+	@Bean
 	public String formaterBigDecimal(BigDecimal decimal) {
 		
 		DecimalFormat df = new DecimalFormat();

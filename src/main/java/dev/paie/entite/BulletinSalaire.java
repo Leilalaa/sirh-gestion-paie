@@ -2,9 +2,14 @@ package dev.paie.entite;
 
 import java.math.BigDecimal;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class BulletinSalaire {
 	
 	private Integer id;
+	@Autowired
 	private RemunerationEmploye remunerationEmploye;
 	private Periode periode;
 	private BigDecimal primeExceptionnelle;

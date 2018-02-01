@@ -1,6 +1,6 @@
 package dev.paie.util;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
