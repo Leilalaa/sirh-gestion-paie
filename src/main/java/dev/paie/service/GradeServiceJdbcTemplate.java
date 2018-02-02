@@ -31,7 +31,7 @@ public class GradeServiceJdbcTemplate implements GradeService {
 	@Override
 	public void sauvegarder(Grade ng){
 		
-		this.jdbcTemplate.update("INSERT INTO grade (code,nbHeureBase,tauxBase) VALUES (?,?,?)", 
+		jdbcTemplate.update("INSERT INTO grade (code,nbHeuresBase,tauxBase) VALUES (?,?,?)", 
 								ng.getCode(), paieUtils.formaterBigDecimal(ng.getNbHeuresBase()), paieUtils.formaterBigDecimal(ng.getTauxBase()));
 		
 	}
@@ -39,8 +39,8 @@ public class GradeServiceJdbcTemplate implements GradeService {
 	@Override
 	public void mettreAJour(Grade grade){
 		
-		this.jdbcTemplate.update("UPDATE grade SET code = ?, nbHeureBase = ?, tauxBase= ? where id = ?",
-									grade.getCode(), grade.getNbHeuresBase(), grade.getTauxBase());
+		jdbcTemplate.update("UPDATE grade SET code = ?, nbHeuresBase = ?, tauxBase= ? where id = ?",
+									grade.getCode(), grade.getNbHeuresBase(), grade.getTauxBase(), grade.getId());
 		
 	}
 	
@@ -53,7 +53,7 @@ public class GradeServiceJdbcTemplate implements GradeService {
 			Grade g = new Grade();
 			g.setId(rs.getInt("ID"));
 			g.setCode(rs.getString("code"));
-			g.setNbHeuresBase(rs.getBigDecimal("nbHeureBase"));
+			g.setNbHeuresBase(rs.getBigDecimal("nbHeuresBase"));
 			g.setTauxBase(rs.getBigDecimal("tauxBase"));
 			return g;
 			};

@@ -1,15 +1,31 @@
 package dev.paie.entite;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 @Component
+@Entity
+@Table(name="ENTREPRISE")
 public class Entreprise {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	@Column(name = "SIRET")
 	private String siret;
+	@Column(name = "DENOMINATION")
 	private String denomination;
+	@Column(name = "ADRESSE")
 	private String adresse;
+	@Column(name = "URSSAF")
 	private String urssaf;
+	@Column(name = "CODENAF")
 	private String codeNaf;
 	
 	public String getDenomination() {

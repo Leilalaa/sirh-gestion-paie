@@ -8,24 +8,25 @@ import javax.sql.DataSource;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import dev.paie.entite.Cotisation;
+import dev.paie.config.ServicesConfig;
 import dev.paie.entite.Grade;
 
-//TODO compléter la configuration
+
+//Sélection des classes de configuration Spring à utiliser lors du test
+@ContextConfiguration(classes = { ServicesConfig.class })
+//Configuration JUnit pour que Spring prenne la main sur le cycle de vie du
+//test
+@RunWith(SpringRunner.class)
 public class GradeServiceJdbcTemplateTest {
 	@Autowired
 	private GradeService gradeService;
 	
-	@Autowired
-	private DataSource dataSource;
-
-	@Before
-	public void setup(){
-		 new JdbcTemplate(dataSource).update("TRUNCATE TABLE grade");
-	}
 	
 	@Test
 	public void test_sauvegarder_lister_mettre_a_jour() {
@@ -50,6 +51,7 @@ public class GradeServiceJdbcTemplateTest {
 		
 	// modifier un grade
 		g.setCode("456");
+		g.setId(1);
 		gradeService.mettreAJour(g);
 		
 		listeGrade.clear();
