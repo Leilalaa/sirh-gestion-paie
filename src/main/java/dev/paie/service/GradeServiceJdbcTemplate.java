@@ -1,7 +1,6 @@
 package dev.paie.service;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -58,9 +57,8 @@ public class GradeServiceJdbcTemplate implements GradeService {
 			return g;
 			};
 		
-		List<Grade> liste = jdbcTemplate.query(sql, mapper);
 		
-		return liste;
+		return jdbcTemplate.query(sql, mapper);
 
 		
 	}
