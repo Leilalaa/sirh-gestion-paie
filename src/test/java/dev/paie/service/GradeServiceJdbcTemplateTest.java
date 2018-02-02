@@ -1,6 +1,8 @@
 package dev.paie.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -9,6 +11,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import dev.paie.entite.Cotisation;
 import dev.paie.entite.Grade;
 
 //TODO compléter la configuration
@@ -27,7 +30,7 @@ public class GradeServiceJdbcTemplateTest {
 	@Test
 	public void test_sauvegarder_lister_mettre_a_jour() {
 		
-	//TODO sauvegarder un nouveau grade
+	//sauvegarder un nouveau grade
 		Grade g = new Grade();
 		
 		g.setCode("123");
@@ -36,11 +39,26 @@ public class GradeServiceJdbcTemplateTest {
 		
 		gradeService.sauvegarder(g);
 		
-	//TODO vérifier qu'il est possible de récupérer le nouveau grade via la méthode lister
+	// vérifier qu'il est possible de récupérer le nouveau grade via la méthode lister
 		
-	//TODO modifier un grade
+		List<Grade> listeGrade = new ArrayList();
+		listeGrade = gradeService.lister();
+		assert listeGrade.stream()
+						.filter(c -> c.getCode().equals("123"))
+						.findAny()
+						.isPresent();
 		
-	//TODO vérifier que les modifications sont bien prises en compte via la méthode lister
+	// modifier un grade
+		g.setCode("456");
+		gradeService.mettreAJour(g);
 		
+		listeGrade.clear();
+		listeGrade.addAll(gradeService.lister());
+		
+	// vérifier que les modifications sont bien prises en compte via la méthode lister
+		assert listeGrade.stream()
+		.filter(c -> c.getCode().equals("456"))
+		.findAny()
+		.isPresent();
 	}
 }

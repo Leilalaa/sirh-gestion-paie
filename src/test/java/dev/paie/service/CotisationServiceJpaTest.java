@@ -34,7 +34,7 @@ public class CotisationServiceJpaTest {
 		cot.setTauxSalarial(new BigDecimal("1.72"));
 		cotisationService.sauvegarder(cot);
 		
-	// TODO vérifier qu'il est possible de récupérer la nouvelle cotisation via la méthode lister
+	// vérifier qu'il est possible de récupérer la nouvelle cotisation via la méthode lister
 		List<Cotisation> listeCoti = new ArrayList();
 		listeCoti = cotisationService.lister();
 		assert listeCoti.stream()
@@ -47,10 +47,11 @@ public class CotisationServiceJpaTest {
 		cot.setCode("HAH");
 		cotisationService.mettreAJour(cot);
 		
-	// TODO vérifier que les modifications sont bien prises en compte via la méthode lister
-		List<Cotisation> listeCoti2 = new ArrayList();
-		listeCoti2 = cotisationService.lister();
-		assert listeCoti2.stream()
+		listeCoti.clear();
+		listeCoti.addAll(cotisationService.lister());
+	// vérifier que les modifications sont bien prises en compte via la méthode lister
+	
+		assert listeCoti.stream()
 						.filter(c -> c.getCode().equals("HAH"))
 						.findAny()
 						.isPresent();
