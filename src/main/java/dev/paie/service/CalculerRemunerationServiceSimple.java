@@ -1,17 +1,12 @@
 package dev.paie.service;
 
 import java.math.BigDecimal;
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
-
-import dev.paie.config.ServicesConfig;
 import dev.paie.entite.BulletinSalaire;
-import dev.paie.entite.Cotisation;
 import dev.paie.entite.Grade;
-import dev.paie.entite.ProfilRemuneration;
 import dev.paie.entite.ResultatCalculRemuneration;
 import dev.paie.util.PaieUtils;
 
@@ -27,7 +22,6 @@ public class CalculerRemunerationServiceSimple implements CalculerRemunerationSe
 		ResultatCalculRemuneration r = new ResultatCalculRemuneration();
 		Grade grade = bulletin.getRemunerationEmploye().getGrade();
 		BigDecimal salaireBase = (grade.getNbHeuresBase()).multiply(grade.getTauxBase());
-		ProfilRemuneration profil = bulletin.getRemunerationEmploye().getProfilRemuneration();	
 		
 		
 
@@ -47,37 +41,34 @@ public class CalculerRemunerationServiceSimple implements CalculerRemunerationSe
 	
 	// Calcul de la retenue salariale selon la formule fournie dans le tp
 	public BigDecimal calculRetSal(ResultatCalculRemuneration rem, BulletinSalaire bulletin){
+
 		
-		BigDecimal total = bulletin.getRemunerationEmploye().getProfilRemuneration().getCotisationsNonImposables().stream()
+		return bulletin.getRemunerationEmploye().getProfilRemuneration().getCotisationsNonImposables().stream()
 	            .filter(c -> c.getTauxSalarial()!=null)
 	            .map(c -> c.getTauxSalarial().multiply(new BigDecimal(rem.getSalaireBrut())))
 	            .reduce((a,b) -> a.add(b)).get();
-		
-		return total;
 		
 	}
 	
 	// Calcul des cotisations patronales selon la formule fournie dans le tp
 	public BigDecimal calculCotPat(ResultatCalculRemuneration rem, BulletinSalaire bulletin){
 		
-		BigDecimal total = bulletin.getRemunerationEmploye().getProfilRemuneration().getCotisationsNonImposables().stream()
+		
+		return bulletin.getRemunerationEmploye().getProfilRemuneration().getCotisationsNonImposables().stream()
 	            .filter(c -> c.getTauxPatronal()!=null)
 	            .map(c -> c.getTauxPatronal().multiply(new BigDecimal(rem.getSalaireBrut())))
 	            .reduce((a,b) -> a.add(b)).get();
-		
-		return total;
 		
 	}
 	
 	// Fonction faisant la somme du taux salarial des cotisations imposables multiplié par le salaire brut pour pouvoir calculer par la suite le net a payer
 	public BigDecimal imposable(ResultatCalculRemuneration rem, BulletinSalaire bulletin){
 		
-		BigDecimal total = bulletin.getRemunerationEmploye().getProfilRemuneration().getCotisationsImposables().stream()
+		
+		return bulletin.getRemunerationEmploye().getProfilRemuneration().getCotisationsImposables().stream()
 	            .filter(c -> c.getTauxSalarial()!=null)
 	            .map(c -> c.getTauxSalarial().multiply(new BigDecimal(rem.getSalaireBrut())))
 	            .reduce((a,b) -> a.add(b)).get();
-		
-		return total;
 		
 	}
 
