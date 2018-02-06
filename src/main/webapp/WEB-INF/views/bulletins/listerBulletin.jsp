@@ -46,15 +46,15 @@
     </tr>
   </thead>
   <tbody>
-    <c:forEach items="${bulletinSalaire}" var="bulletinSalaire">
+    <c:forEach items="${bulletinSalaire}" var="bulletinSalaire" varStatus="index">
     							<tr>
 									<td>${bulletinSalaire.id}</td>
-									<td>${bulletinSalaire.periode}</td>
-									<td>test</td>
-									<td>test</td>
-									<td>test</td>
-									<td>test</td>
-									<td>Visualiser</td>
+								    <td>${bulletinSalaire.periode.dateDebut} au ${bulletinSalaire.periode.dateFin}</td>
+									<td>${bulletinSalaire.remunerationEmploye.matricule}</td>
+									<td>${bulletinCalcul[bulletinSalaire].salaireBrut}</td>
+									<td>${bulletinCalcul[bulletinSalaire].netImposable}</td>
+									<td>${bulletinCalcul[bulletinSalaire].netAPayer}</td>
+									<td><a href="http://localhost:8080/paie/mvc/bulletins/voir?index=${index.index}">Visualiser</a></td>
 								</tr>
 	</c:forEach>
   </tbody>

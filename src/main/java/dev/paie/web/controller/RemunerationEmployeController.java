@@ -59,7 +59,7 @@ public class RemunerationEmployeController {
 	public String submit(@ModelAttribute("employe")RemunerationEmploye employe) {
 		
 		rer.save(employe);
-        return "redirect:/index.html";
+        return "redirect:/mvc/employes/lister.html";
     }
 		
 	

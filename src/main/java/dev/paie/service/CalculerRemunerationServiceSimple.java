@@ -21,18 +21,18 @@ public class CalculerRemunerationServiceSimple implements CalculerRemunerationSe
 		
 		ResultatCalculRemuneration r = new ResultatCalculRemuneration();
 		Grade grade = bulletin.getRemunerationEmploye().getGrade();
-		BigDecimal salaireBase = (grade.getNbHeuresBase()).multiply(grade.getTauxBase());
+		BigDecimal salaireBase = new BigDecimal (paieUtils.formaterBigDecimal((grade.getNbHeuresBase()).multiply(grade.getTauxBase())));
 		
 		
 
-		
-		r.setSalaireBrut(salaireBase+paieUtils.formaterBigDecimal(bulletin.getPrimeExceptionnelle()));
+		r.setSalaireDeBase(salaireBase.toString());
+		r.setSalaireBrut(paieUtils.formaterBigDecimal(salaireBase.add(bulletin.getPrimeExceptionnelle())));
 		r.setTotalRetenueSalarial(calculRetSal(r,bulletin).toString());
 		r.setTotalCotisationsPatronales(calculCotPat(r,bulletin).toString());
 		String netImpo = (new BigDecimal(r.getSalaireBrut()).subtract(new BigDecimal(r.getTotalRetenueSalarial()))).toString();
 		r.setNetImposable(netImpo);
 		r.setNetAPayer((new BigDecimal(r.getNetImposable())).subtract(imposable(r,bulletin)).toString());
-		
+
 		return r;
 		
 			
