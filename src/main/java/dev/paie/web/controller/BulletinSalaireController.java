@@ -1,6 +1,9 @@
 package dev.paie.web.controller;
 
 
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +65,10 @@ public class BulletinSalaireController {
 	@Secured("ROLE_ADMINISTRATEUR")
 	public String submit(@ModelAttribute("bulletinSalaire")BulletinSalaire bulletinSalaire) {
 		
+		LocalDateTime localDateTime = LocalDateTime.now();   
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd / hh:mm");
+        String format = localDateTime.format(formatter);
+		bulletinSalaire.setDateCreation(format);
 		bsr.save(bulletinSalaire);
         return "redirect:/mvc/bulletins/lister.html";
     }

@@ -31,13 +31,15 @@
 	<br />
 		<h1 align="center">SIRH - Gestion de la paie</h1>
     <br />
-    <p align="center"> Bienvenue sur cette interface de gestion des employés et des bulletins de paie. Que souhaitez-vous faire ?
+    <p align="center"> Bienvenue sur cette interface de gestion des employés et des bulletins de paie. 
+    <sec:authorize access="hasRole('ROLE_ADMINISTRATEUR')">Que souhaitez-vous faire ?
       <br />
       <br />
       <div class="d-flex justify-content-center">
         <div class="p-2"><a href="http://localhost:8080/paie/mvc/bulletins/creer" role = "button" class="btn btn-primary" style='float:left;'>Créer un nouveau bulletin</a></div>
         <div class="p-2"><a href="http://localhost:8080/paie/mvc/employes/creer" role = "button" class="btn btn-primary" style='float:right;'>Ajouter un employé</a></div>
     </div>
+      </sec:authorize>
     </p>
     <br />
 </body>

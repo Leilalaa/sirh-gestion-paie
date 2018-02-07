@@ -1,5 +1,8 @@
 package dev.paie.web.controller;
 
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -61,6 +64,10 @@ public class RemunerationEmployeController {
 	@Secured("ROLE_ADMINISTRATEUR")
 	public String submit(@ModelAttribute("employe")RemunerationEmploye employe) {
 		
+		LocalDateTime localDateTime = LocalDateTime.now();   
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd / hh:mm");
+        String format = localDateTime.format(formatter);
+		employe.setDateCreation(format);
 		rer.save(employe);
         return "redirect:/mvc/employes/lister.html";
     }

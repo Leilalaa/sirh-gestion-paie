@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -19,7 +21,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private PasswordEncoder passwordEncoder;
 	@Autowired 
 	private DataSource dataSource;
-	
+//	@Autowired
+//	private LogoutHandler logoutHandler;
+//	@Autowired
+//	private LogoutSuccessHandler logoutSuccessHandler;
+//	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication()
@@ -29,9 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.authoritiesByUsernameQuery("select NOM_UTILISATEUR,ROLE from UTILISATEUR where NOM_UTILISATEUR = ?");
 	}
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().anyRequest().authenticated().antMatchers("/bootstrap-3.3.7/css/bootstrap.min.css").permitAll().and().formLogin().loginPage("/mvc/connexion").permitAll();
-	}
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		http.authorizeRequests().anyRequest().authenticated().antMatchers("/bootstrap-3.3.7/css/bootstrap.min.css").permitAll().and().formLogin().loginPage("/mvc/connexion").permitAll();
+//		http.logout().logoutSuccessUrl("/mvc/connexion").logoutSuccessHandler(logoutSuccessHandler).invalidateHttpSession(true).addLogoutHandler(logoutHandler).deleteCookies("JSESSIONID").and();
+//	}
+//	
+
 }
 
