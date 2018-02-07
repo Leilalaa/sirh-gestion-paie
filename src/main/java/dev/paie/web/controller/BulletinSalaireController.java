@@ -1,6 +1,6 @@
 package dev.paie.web.controller;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,6 +44,7 @@ public class BulletinSalaireController {
 	CalculerRemunerationServiceSimple crss;
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/creer") 
+	@Secured("ROLE_ADMINISTRATEUR")
 	public ModelAndView creerBulletin() {
 		
 		List<Periode> periodes = pr.findAll();
@@ -57,6 +59,7 @@ public class BulletinSalaireController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, path = "/creer") 
+	@Secured("ROLE_ADMINISTRATEUR")
 	public String submit(@ModelAttribute("bulletinSalaire")BulletinSalaire bulletinSalaire) {
 		
 		bsr.save(bulletinSalaire);
@@ -66,6 +69,7 @@ public class BulletinSalaireController {
 	
 	@Transactional
 	@RequestMapping(method = RequestMethod.GET, path = "/lister") 
+	@Secured({"ROLE_UTILISATEUR", "ROLE_ADMINISTRATEUR"})
 	public ModelAndView listerBulletin() {
 		
 		List<BulletinSalaire> bulletins = bsr.findAll();
@@ -87,6 +91,7 @@ public class BulletinSalaireController {
 	
 	@Transactional
 	@RequestMapping(method = RequestMethod.GET, path = "/voir") 
+	@Secured({"ROLE_UTILISATEUR", "ROLE_ADMINISTRATEUR"})
 	public ModelAndView voirBulletin(@RequestParam("index") int i) {
 		
 		ModelAndView mv = new ModelAndView();
