@@ -1,11 +1,15 @@
 package dev.paie.web.controller;
 
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +43,7 @@ public class RemunerationEmployeController {
 
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/creer") 
+	@Secured("ROLE_ADMINISTRATEUR")
 	public ModelAndView creerEmploye() {
 		
 		List<Entreprise> entreprises = er.findAll();
@@ -56,14 +61,20 @@ public class RemunerationEmployeController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, path = "/creer") 
+	@Secured("ROLE_ADMINISTRATEUR")
 	public String submit(@ModelAttribute("employe")RemunerationEmploye employe) {
 		
+		LocalDateTime localDateTime = LocalDateTime.now();   
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd / hh:mm");
+        String format = localDateTime.format(formatter);
+		employe.setDateCreation(format);
 		rer.save(employe);
         return "redirect:/mvc/employes/lister.html";
     }
 		
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/lister") 
+	@Secured({"ROLE_UTILISATEUR", "ROLE_ADMINISTRATEUR"})
 	public ModelAndView listerEmploye() {
 		
 		List<RemunerationEmploye> remun = rer.findAll();

@@ -10,9 +10,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import dev.paie.config.ServicesConfig;
 import dev.paie.entite.Grade;
@@ -23,6 +25,7 @@ import dev.paie.entite.Grade;
 //Configuration JUnit pour que Spring prenne la main sur le cycle de vie du
 //test
 @RunWith(SpringRunner.class)
+@WebAppConfiguration
 public class GradeServiceJdbcTemplateTest {
 	@Autowired
 	private GradeService gradeService;

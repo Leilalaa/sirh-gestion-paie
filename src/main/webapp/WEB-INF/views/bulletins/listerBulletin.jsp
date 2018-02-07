@@ -29,7 +29,9 @@
 
   <h1 class="ui header" align = "center">Liste des bulletins</h1>
   <br />
+  <sec:authorize access="hasRole('ROLE_ADMINISTRATEUR')">
   <a href="http://localhost:8080/paie/mvc/bulletins/creer" role = "button" class="btn btn-primary" style='float:right;'>Créer un nouveau bulletin</a>
+  </sec:authorize>
   <br />
   <br />
   <br />
@@ -48,7 +50,7 @@
   <tbody>
     <c:forEach items="${bulletinSalaire}" var="bulletinSalaire" varStatus="index">
     							<tr>
-									<td>${bulletinSalaire.id}</td>
+									<td>${bulletinSalaire.dateCreation}</td>
 								    <td>${bulletinSalaire.periode.dateDebut} au ${bulletinSalaire.periode.dateFin}</td>
 									<td>${bulletinSalaire.remunerationEmploye.matricule}</td>
 									<td>${bulletinCalcul[bulletinSalaire].salaireBrut}</td>

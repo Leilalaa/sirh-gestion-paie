@@ -1,7 +1,4 @@
 package dev.paie.entite;
-
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,14 +24,15 @@ public class RemunerationEmploye {
 	@ManyToOne
 	private Grade grade;
 	@Column(name = "DATECREATION")
-	private LocalDate dateCreation;
+	private String dateCreation;
 	
-	public LocalDate getDateCreation() {
+	public String getDateCreation() {
 		return dateCreation;
 	}
-	public void setDateCreation(LocalDate dateCreation) {
+	public void setDateCreation(String dateCreation) {
 		this.dateCreation = dateCreation;
 	}
+
 	public String getMatricule() {
 		return matricule;
 	}

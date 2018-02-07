@@ -1,7 +1,7 @@
 package dev.paie.entite;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,12 +26,12 @@ public class BulletinSalaire {
 	@Column(name = "PRIMEEXCEPTIONNELLE")
 	private BigDecimal primeExceptionnelle;
 	@Column(name = "DATECREATION")
-	private LocalDate dateCreation;
+	private String dateCreation;
 	
-	public LocalDate getDateCreation() {
+	public String getDateCreation() {
 		return dateCreation;
 	}
-	public void setDateCreation(LocalDate dateCreation) {
+	public void setDateCreation(String dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 

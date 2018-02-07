@@ -29,7 +29,9 @@
 
   <h1 class="ui header" align = "center">Liste des employés</h1>
   <br />
+  <security:authorize access="hasRole('ROLE_ADMINISTRATEUR')">
   <a href="http://localhost:8080/paie/mvc/employes/creer" role = "button" class="btn btn-primary" style='float:right;'>Ajouter un employé</a>
+  </security:authorize>
   <br />
   <br />
   <br />
@@ -44,7 +46,7 @@
   <tbody>
     <c:forEach items="${remunerationemploye}" var="remun">
     							<tr>
-									<td>${remun.id}</td>
+									<td>${remun.dateCreation}</td>
 									<td>${remun.matricule}</td>
 									<td>${remun.grade.code}</td>
 								</tr>
